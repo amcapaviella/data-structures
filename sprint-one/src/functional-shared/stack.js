@@ -55,7 +55,7 @@ var stackMethods = {
    //create a size function 
    //returns the current counter value;
   size: function() {
-  return this.count;
+    return this.count;
   }
 };
 
