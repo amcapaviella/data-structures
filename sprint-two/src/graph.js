@@ -8,7 +8,7 @@ var Graph = function() {
 // Add a node to the graph, passing in the node's value.
 Graph.prototype.addNode = function(node) {
   //add value and edges property to the node, add them to this.storage
-  //creates objet with a key of node and a value of empty array, then add it to storage 
+  //creates objet with a key of node and a value of empty array, then add it to storage
   this.storage[node] = [];
 };
 
@@ -21,9 +21,10 @@ Graph.prototype.contains = function(node) {
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
   //delete this.storage.node
+  for (var i = 0; i < this.storage[node].length; i++) {
+    this.removeEdge(node, this.storage[node][i]);
+  }
   delete this.storage[node];
-	
-	
 
 };
 
@@ -32,7 +33,7 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
   //look up fromNode and see if fromNodes array contains toNode's value
   //return boolean
   return this.storage[fromNode].includes(toNode);
-	
+
 };
 
 // Connects two nodes in a graph by adding an edge between them.
@@ -50,21 +51,24 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
   for (var i = 0; i < this.storage[fromNode].length; i++) {
     if (this.storage[fromNode][i] === toNode) {
       //console.log(this.storage[fromNode], this.storage[fromNode].splice(i, 1));
-      this.storage[fromNode] = this.storage[fromNode].splice(i, 1);
+      this.storage[fromNode].splice(i);
     }
   }
   for (var i = 0; i < this.storage[toNode].length; i++) {
-    if (this.storage[fromNode][i] === fromNode) {
-      this.storage[froNode] = this.storage[toNode].splice(i, 1);
+    if (this.storage[toNode][i] === fromNode) {
+      this.storage[toNode].splice(i);
     }
   }
+
 
 };
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
-  _.each(this.storage, cb);
-	
+  for ( var key in this.storage) {
+    cb(key);
+  }
+
 };
 
 var graphInstance = new Graph();
