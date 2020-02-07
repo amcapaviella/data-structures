@@ -20,9 +20,9 @@ var treeMethods = {};
 //effect = uses .children to add it to the child array
 treeMethods.addChild = function(value) {
 //childTree would be Tree(value)
-var childTree = Tree(value);
-//add childTree to this.children
-this.children.push(childTree);
+  var childTree = Tree(value);
+  //add childTree to this.children
+  this.children.push(childTree);
 
 
 };
@@ -32,20 +32,20 @@ this.children.push(childTree);
 //output is a boolean
 //looks at first node, looks at children of that node....
 treeMethods.contains = function(target) {
-	//loop through values, check the value, if not check all the children
-	var isThere = false;
-	if(this.value === target){
-		isThere = true;
-	} else {
-		for (var i = 0; i < this.children.length; i++) {
-		isThere = isThere || this.children[i].contains(target);
+  //loop through values, check the value, if not check all the children
+  var isThere = false;
+  if (this.value === target) {
+    isThere = true;
+  } else {
+    for (var i = 0; i < this.children.length; i++) {
+      isThere = isThere || this.children[i].contains(target);
 			
-		} 
-	} 
-	return isThere;
+    } 
+  } 
+  return isThere;
 
-	//*base case* if tree.children.item === target return true || 
-	//we run out of children return false  *base case* 
+  //*base case* if tree.children.item === target return true || 
+  //we run out of children return false  *base case* 
 	
 };
 
