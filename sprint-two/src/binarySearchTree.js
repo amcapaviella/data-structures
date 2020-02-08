@@ -37,30 +37,49 @@ bstMethods.contains = function(value) {
 //looks at current element and compares value to it,
 //if value is larger it moves right if it is larger it moves left until either
 //left and right are empty or the value is found
-  if (value > this.value) {
-    if (this.right !== value) {
-      this.right.contains(value);
-    } else if (this.right === undefined) {
-      return false;
-    } else {
-      return true;
-    }
+  var isTrue = false;
 
-  }
-  if (value < this.value) {
-    if (this.left !== value) {
-      this.left.contains(value);
-    } else if (this.left === undefined) {
+  if (this.value === value) {
+    isTrue = true;
+  } else if (this.value < value) {
+    if (this.right === undefined) {
       return false;
-    } else {
-      return true;
     }
-
+    isTrue = isTrue || this.right.contains(value);
+  } else if (this.value > value) {
+    if (this.left === undefined) {
+      return false;
+    }
+    isTrue = isTrue || this.left.contains(value);
   }
+  return isTrue;
 };
+
+
+
+
+
+
 
 //takes the callback function and executes it on every value in the tree
 bstMethods.depthFirstLog = function(cb) {
+  //if neither left or right exist
+
+  cb(this.value);
+
+  if (this.right === undefined && this.left === undefined) {
+  } else {
+    //if (right is not undefined) run cb on right
+    if (this.left !== undefined) {
+      this.left.depthFirstLog(cb);
+    }
+
+    if (this.right !== undefined) {
+      this.right.depthFirstLog(cb);
+    }
+    //run depthfirst on left
+  }
+  //otherwise, move recursively with CB through the trees
 
 };
 
